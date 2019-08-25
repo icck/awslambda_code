@@ -1,6 +1,7 @@
 
 import twitter
 
+# os.environ.get('')を利用してキーを設定する
 auth = twitter.OAuth(consumer_key="",
 consumer_secret="",
 token="",
