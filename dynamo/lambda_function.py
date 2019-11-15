@@ -3,7 +3,7 @@ import json
 
 dynamodb = boto3.resource('dynamodb')
 # table_name:icck-person pk:person_id sk: Other: name
-# dynamodb 作ってから実行
+# dynamodb 作ってから実行2
 table = dynamodb.Table('icck-person')
 
 def get_person(id):
