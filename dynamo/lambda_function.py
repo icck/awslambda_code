@@ -15,6 +15,9 @@ def get_person(id):
     return respose['Item']
 
 
+def get_persons():
+    response = table.scan()
+    return response['Items']
+
 def lambda_handler(event, context):
-    person = get_person(event['person_id'])
-    return person
+    return get_persons() if event['person_id'] == '' else get_person(event['person_id'])
