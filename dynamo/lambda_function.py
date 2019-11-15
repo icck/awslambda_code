@@ -16,5 +16,5 @@ def get_person(id):
 
 
 def lambda_handler(event, context):
-    person = get_person('001')
+    person = get_person(event['person_id'])
     return person
