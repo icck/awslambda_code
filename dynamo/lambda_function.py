@@ -14,7 +14,6 @@ def get_person(id):
         )
     return respose['Item']
 
-
 def get_persons():
     response = table.scan()
     return response['Items']
