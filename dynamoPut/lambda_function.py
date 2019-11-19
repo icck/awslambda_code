@@ -1,18 +1,14 @@
 import json
 import boto3
+import logging
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('icck-person')
 
-def get_person(id):
-    respose = table.get_item(
-            Key={
-                'person_id':id
-            }
-        )
-    return respose['Item']
-
-def put_person(id, name)
+def put_person(id, name):
     try:
         additional_item = {
             'person_id':id,
@@ -21,16 +17,17 @@ def put_person(id, name)
 
         response = table.put_item(
             Item=additional_item,
-            ConditionExpression='attribute_not_exists(person_id) AND attribute_not_exists(name)'
+            ConditionExpression='attribute_not_exists(person_id)'
         )
 
-    except Exception:
+        return json.dumps(response, indent=4, cls=DecimalEncoder)
+
+    except Exception as e:
+        # キーが存在しない場合などの、例外処理
+        logger.error(e)
+        raise e
 
 
 def lambda_handler(event, context):
-    # TODO implement
-    return {
-        'statusCode': 200,
-        'body': json.dumps('Hello from Lambda!')
-    }
 
+    return put_person(event['person_id'], event['name'])
